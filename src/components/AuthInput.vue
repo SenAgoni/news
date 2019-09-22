@@ -6,6 +6,7 @@
          success : package === true ,
          error: package === false
      }"
+     :type="type"
       :placeholder="placeholder"
       :errormsg="errormsg"
       :value="value"
@@ -26,6 +27,7 @@ export default {
   props: [
     "placeholder",
     "value",
+    "type",
 
     "input",
     "rule",

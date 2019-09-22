@@ -7,16 +7,22 @@ import Vue from "vue";
 import App from "@/App.vue";
 // 引入vant包
 import Vant from 'vant';
+// 引入axios包,因为axios请求会在很多地方都可以用到
+import axios from 'axios';
 // 引入路由模块
 import VueRouter from "vue-router";
 // 引入登录页的组件文件
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
+// 像vant一样要绑定到根实例的原型链上
+Vue.prototype.$axios = axios;
 // 路由:1.创建一个路由数组,用来匹配路径的组件
 const routes = [
-    {path:'/login',component:Login}
+    {path:'/login',component:Login},
+    {path:'/Register',component:Register}
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
 const router = new VueRouter({

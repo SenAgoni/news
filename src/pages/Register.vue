@@ -27,14 +27,22 @@
      :rule="/^[0-9a-zA-Z]{3,10}$/"
      errormsg="密码格式错误"
      ></AuthInput>
+     <!-- 昵称 -->
+      <AuthInput 
+     placeholder="昵称"
+     :value="form.nickname"
+     @input="handelnickname"
+     :rule="/^[\u4E00-\u9FA5A-Za-z0-9_]+$/"
+     errormsg="昵称格式错误"
+     ></AuthInput>
      <!-- 跳转登录处 -->
      <div class="close tips">
-        还没注册?<router-link to="/Register">跳转注册页</router-link>
+        已经注册?<router-link to="/Register">跳转登录页</router-link>
       </div>
       <!-- 登录按钮存放处 -->
       <div class="close">
         <AuthButton 
-        text="登录"
+        text="注册"
         :formdata="form"
         ></AuthButton>
       </div>
@@ -53,7 +61,8 @@ export default {
         return {
             form:{
                 username:"",
-                password:""
+                password:"",
+                nickname:""
             }
         }
     },
@@ -69,6 +78,9 @@ export default {
         },
         handelpassword(value){
            this.form.password = value;
+        },
+        handelnickname(value){
+            this.form.nickname = value;
         }
     }
 }
