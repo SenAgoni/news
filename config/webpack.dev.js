@@ -16,6 +16,6 @@ module.exports = merge(base, {
     // 开发服务器配置
     devServer: {
         port: 8000, // 默认端口是8080
-        stats: 'errors-only' //这是表示只打印错误信息
+        stats: 'errors-only', //这是表示只打印错误信息
    },
 })

@@ -1,37 +1,41 @@
+// 这个文件是用来填写坑位的,相当于是所有的vue文件的输出部分
 <template>
-  <div id="app" class="colorRed">
-      这是第一单组件文件
-      <div class="box">这是利用了rem写出来的文字</div>
-      <p>
-          <!-- 这是给路由跳转添加一个点击跳转到登录页的路由 -->
-          <router-link to="/login">跳转到登录页</router-link>
-      </p>
+  <div id="app">
+      <!-- 这是用于填坑的是要填什么组件就要书写什么样的坑 -->
       <router-view></router-view>
     </div>
 </template>
 
 <script>
 export default {
-// 这里书写除了template外的所有数据 比如data(){} computed{} watch{}
+data(){
+  return {
+    list:[]
+  }
+}
 }
 </script>
 
 <style>
-/* 这里书写样式就是写组件 */
-.colorRed{
-    color:#000;
+/* 引入字体图标样式 */
+@import url("http://at.alicdn.com/t/font_1426139_h6vn3jbl5q.css");
+/* // 在app主页面的vue文件中引入刚下载的包,因为有可能所有的 文件都是需要用到的 */
+@import url('../node_modules/vant/lib/index.css');
+/* 这里书写样式最初始化的 */
+*{
+  margin:0;
+  padding:0;
 }
-html{
-    font-size: 10vw;
+ul,li,ol{
+  list-style: none;
 }
-    
-body{
-    font-size:0.5rem;
+input{
+  outline: none;
 }
-
-.box{
-    width: 5rem;
-    height:5rem;
-    background: rgba(17, 0, 255, 0.24);
+a{
+  color:inherit;
+}
+a:hover{
+  text-decoration: none;
 }
 </style>
