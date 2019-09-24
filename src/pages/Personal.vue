@@ -25,15 +25,16 @@
       label="我的收藏"
       text="文章/视频"
       ></cellbar>
-      <cellbar
+      <Loginout
       label="退出"
-      ></cellbar>
+      ></Loginout>
   </div>
 </template>
 
 <script>
 // 引入组件
 import cellbar from '@/components/CellBar'
+import Loginout from '@/components/Loginout'
 export default {
     data(){
         // 存储一个对象就好
@@ -56,15 +57,24 @@ export default {
                     Authorization: hasToken
                 }
             }).then(res=>{
-                const data = res.data.data;
-                    // 设置默认用户头像 如果他有头像就用它的,如果他没有就要用自己的
-                    // 把数据存到data数据中
-                    this.profile = data;
-                    if(data.head_img){
-                         // 服务器的基准地址加上图片
-                        this.profile.head_img = axios.defaults.baseURL + this.profile.head_img;
+                    if(!res.data.statusCode){
+                        // 这里的条件是如果没有渲染失败的状态码回来就渲染页面,如果有就就要跳转到登录页并且把原先的数据删除
+                        const data = res.data.data;
+                        // 设置默认用户头像 如果他有头像就用它的,如果他没有就要用自己的
+                        // 把数据存到data数据中
+                        this.profile = data;
+                        if(data.head_img){
+                             // 服务器的基准地址加上图片
+                            this.profile.head_img = axios.defaults.baseURL + this.profile.head_img;
+                        }else{
+                            data.head_img = "../static/images/tanqi.png"
+                        }
                     }else{
-                        data.head_img = "../static/images/tanqi.png"
+                        this.$toast.fail('请先登录');
+                        this.$router.push('/login');
+                        // 顺便把原本的token清除掉
+                        localStorage.removeItem('token')
+                        localStorage.removeItem('user_id')
                     }
             })
         }
@@ -72,6 +82,7 @@ export default {
     // 注册组件
     components:{
         cellbar,
+        Loginout
     }
 }
 </script>

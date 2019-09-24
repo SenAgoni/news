@@ -37,7 +37,7 @@ export default {
             // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
             setTimeout(() => {
                 this.$router.push('/personal')
-            }, 2000);
+            }, 1000);
           }
         })
       }else if(this.formdata.nickname){
@@ -52,7 +52,7 @@ export default {
             // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
             setTimeout(() => {
                 this.$router.push('/login')
-            }, 2000);
+            }, 1000);
           }
         })
       }

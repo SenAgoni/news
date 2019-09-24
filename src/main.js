@@ -33,11 +33,31 @@ const routes = [
 const router = new VueRouter({
     routes
 }) 
+// 路由守卫就是每请求一个路由,就会经过这里
+router.beforeEach((to,from,next)=>{
+    const hasToken = localStorage.getItem("token");
+    if(to.path === '/personal'){
+        if(hasToken){
+            return next();
+        }else{
+            app.$toast.fail('请先登录')
+            return next('/login')
+        }
+    }else{
+        // 若是请求其他页面就可以直接代码往下执行
+        next();
+    }
+})
+// 下面是所有的axios的请求都会直接经过这里
 axios.interceptors.response.use(res => {
     const {message, statusCode} = res.data;
-	// 能正常请求后台，但是响应的code是401时弹出错误 -- 这一个方法是在根实例下  
+	// 能正常请求后台，但是响应的code是401时弹出错误 -- 这一个方法是在根实例下 而且这一个请求是所有的后台请求接口都会经过这里的  
     if(message && statusCode == 401){
-        app.$toast.fail(res.data.message);
+        app.$toast.fail(message);
+    }
+    // 这里是axios请求失败的时候响应回来的信息
+    if(message === '用户验证信息失败'){
+        app.$router.push('/login')
     }
     return res;
 })
