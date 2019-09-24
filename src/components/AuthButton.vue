@@ -27,10 +27,16 @@ export default {
           data: this.formdata,
         }).then(res => {
           if (res.data.message === '登录成功') {
+            // 这一个数据用户验证用户是否已登录,要把数据存储到本地存储中
+            let {token} = res.data.data;
+            let user_id = res.data.data.user.id;
+            localStorage.setItem("token",token);
+            // 也要把用户的id存进去,这样子才可以渲染页面
+            localStorage.setItem("user_id",user_id);
             this.$toast.success('登录成功')
             // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
             setTimeout(() => {
-                this.$router.push('/')
+                this.$router.push('/personal')
             }, 2000);
           }
         })

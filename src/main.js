@@ -33,8 +33,16 @@ const routes = [
 const router = new VueRouter({
     routes
 }) 
+axios.interceptors.response.use(res => {
+    const {message, statusCode} = res.data;
+	// 能正常请求后台，但是响应的code是401时弹出错误 -- 这一个方法是在根实例下  
+    if(message && statusCode == 401){
+        app.$toast.fail(res.data.message);
+    }
+    return res;
+})
 //创建一个vue实例
-new Vue({
+var app =  new Vue({
       //这里是作用域,也就是这里的实例要运用到哪一个区域
       el:'#app',
     // 路由:3.挂载路由
