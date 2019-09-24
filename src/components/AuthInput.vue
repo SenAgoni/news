@@ -56,7 +56,7 @@ export default {
         let { value } = event.target;
         if (!this.rule.test(value)){
             // 提示信息一定是要一个动态的,所以需要那边调用的时候传值过来
-            this.$toast(this.errormsg)
+            this.$toast.fail(this.errormsg)
         }
     }
   }

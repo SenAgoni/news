@@ -14,15 +14,20 @@ import VueRouter from "vue-router";
 // 引入登录页的组件文件
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+// 引入用户中心的组件
+import Personal from '@/pages/Personal';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
 // 像vant一样要绑定到根实例的原型链上
 Vue.prototype.$axios = axios;
+// 配置路由的基准路径
+axios.defaults.baseURL = "http://localhost:3000";
 // 路由:1.创建一个路由数组,用来匹配路径的组件
 const routes = [
     {path:'/login',component:Login},
-    {path:'/Register',component:Register}
+    {path:'/Register',component:Register},
+    {path:'/Personal',component:Personal}
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
 const router = new VueRouter({

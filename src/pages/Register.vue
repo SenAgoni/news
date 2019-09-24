@@ -37,7 +37,7 @@
      ></AuthInput>
      <!-- 跳转登录处 -->
      <div class="close tips">
-        已经注册?<router-link to="/Register">跳转登录页</router-link>
+        已经注册?<router-link to="/Login">跳转登录页</router-link>
       </div>
       <!-- 登录按钮存放处 -->
       <div class="close">

@@ -22,24 +22,31 @@ export default {
       let axios = this.$axios;
       if (!this.formdata.nickname) {
         axios({
-          url: 'http://localhost:3000/login',
+          url: '/login',
           method: 'POST',
           data: this.formdata,
         }).then(res => {
           if (res.data.message === '登录成功') {
+            this.$toast.success('登录成功')
             // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
-            this.$router.push('/')
+            setTimeout(() => {
+                this.$router.push('/')
+            }, 2000);
           }
         })
       }else if(this.formdata.nickname){
           axios({
-          url: 'http://localhost:3000/register',
+          url: '/register',
           method: 'POST',
           data: this.formdata,
         }).then(res => {
           if (res.data.message === '注册成功') {
             // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
-            this.$router.push('/login')
+            this.$toast.success('注册成功')
+            // 如果登录成功就要跳转页面,登录失败就不跳转 $router方法就是运用push和back来跳转到括号里指定的路径
+            setTimeout(() => {
+                this.$router.push('/login')
+            }, 2000);
           }
         })
       }

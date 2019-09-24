@@ -29,6 +29,9 @@ data(){
 ul,li,ol{
   list-style: none;
 }
+i,em{
+  font-style: normal;
+}
 input{
   outline: none;
 }
