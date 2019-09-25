@@ -8,7 +8,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // 其他打包文件的插件
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // 引入vue-loader插件 用于渲染vue文件的
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     entry: {
         // 这里的入口文件有两个,所以相同的出口文件也会是要有两个才可以
@@ -70,7 +71,11 @@ module.exports = {
             template: "public/index.html" // template指定默认html模板
         }),
         // vue加载器插件
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        // 这一个是复制文件
+        new CopyPlugin([
+            { from: 'static', to: 'static' },
+        ]),
     ],
     //提取公共模块配置
     optimization: {

@@ -1,7 +1,7 @@
 <template>
   <div>
       <!-- 头部用户信息部分 -->
-      <div class="profile">
+      <div class="profile" @click="$router.push('/edit')">
         <!-- 用户头像是不能自己固定的,所以可以根据那个用户登录就渲染他自己设置的用户头像,所以要验证是哪一个用户登录啦 -->
           <img :src = "profile.head_img" alt="">
           <div class="profile_info">
@@ -67,7 +67,7 @@ export default {
                              // 服务器的基准地址加上图片
                             this.profile.head_img = axios.defaults.baseURL + this.profile.head_img;
                         }else{
-                            data.head_img = "../static/images/tanqi.png"
+                            data.head_img = "./static/images/tanqi.png"
                         }
                     }else{
                         this.$toast.fail('请先登录');

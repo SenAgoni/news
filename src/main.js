@@ -16,6 +16,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 // 引入用户中心的组件
 import Personal from '@/pages/Personal';
+import edit from '@/pages/edit';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
@@ -24,51 +25,68 @@ Vue.prototype.$axios = axios;
 // 配置路由的基准路径
 axios.defaults.baseURL = "http://localhost:3000";
 // 路由:1.创建一个路由数组,用来匹配路径的组件
-const routes = [
-    {path:'/login',component:Login},
-    {path:'/Register',component:Register},
-    {path:'/Personal',component:Personal}
+const routes = [{
+        path: '/login',
+        component: Login
+    },
+    {
+        path: '/register',
+        component: Register
+    },
+    {
+        path: '/personal',
+        component: Personal
+    },
+    {
+        path: '/edit',
+        component: edit
+    },
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
 const router = new VueRouter({
     routes
-}) 
+})
+//创建一个vue实例
+var app = new Vue({
+    //这里是作用域,也就是这里的实例要运用到哪一个区域
+    el: '#app',
+    // 路由:3.挂载路由
+    router,
+    // 这里就是把App中的元素渲染出来
+    render(createElement) {
+        return createElement(App);
+    }
+})
 // 路由守卫就是每请求一个路由,就会经过这里
-router.beforeEach((to,from,next)=>{
+router.beforeEach((to, from, next) => {
+    console.log(to)
     const hasToken = localStorage.getItem("token");
-    if(to.path === '/personal'){
-        if(hasToken){
+    if (to.path === '/personal' || to.path === '/edit') {
+        if (hasToken) {
             return next();
-        }else{
+        } else {
             app.$toast.fail('请先登录')
             return next('/login')
         }
-    }else{
+    } else {
         // 若是请求其他页面就可以直接代码往下执行
         next();
     }
 })
 // 下面是所有的axios的请求都会直接经过这里
 axios.interceptors.response.use(res => {
-    const {message, statusCode} = res.data;
-	// 能正常请求后台，但是响应的code是401时弹出错误 -- 这一个方法是在根实例下 而且这一个请求是所有的后台请求接口都会经过这里的  
-    if(message && statusCode == 401){
+    const {
+        message,
+        statusCode
+    } = res.data;
+    // 能正常请求后台，但是响应的code是401时弹出错误 -- 这一个方法是在根实例下 而且这一个请求是所有的后台请求接口都会经过这里的  
+    if (message && statusCode == 401) {
+        // 这是操作数据获取有所失败的时候的提示
         app.$toast.fail(message);
     }
     // 这里是axios请求失败的时候响应回来的信息
-    if(message === '用户验证信息失败'){
+    if (message === '用户验证信息失败') {
         app.$router.push('/login')
     }
     return res;
-})
-//创建一个vue实例
-var app =  new Vue({
-      //这里是作用域,也就是这里的实例要运用到哪一个区域
-      el:'#app',
-    // 路由:3.挂载路由
-    router,
-    // 这里就是把App中的元素渲染出来
-     render(createElement){
-        return createElement(App);
-     }
 })
