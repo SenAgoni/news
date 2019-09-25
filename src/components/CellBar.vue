@@ -1,10 +1,10 @@
 <template>
-  <div class="cellbar">
+  <div class="cellbar" @click="$emit('click',$event)">
     <div class="cellbar_left">
         <span>{{label}}</span>
     </div>
       <div class="cellbar_right">
-          <i>{{text}}</i>
+          <i>{{ type === 'password' ? "******":text}}</i>
           <span class="iconfont iconjiantou1"></span>
     </div>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    props:["label","text"]
+    props:["label","text","type"]
 }
 </script>
 
