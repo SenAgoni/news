@@ -13,10 +13,12 @@
               <span class="iconfont iconjiantou1"></span>
           </div>
       </div>
-      <cellbar
+      <router-link to="/myfollow">
+        <cellbar
       label="我的关注"
       text="关注的用户"
       ></cellbar>
+      </router-link>
       <cellbar
       label="我的跟帖"
       text="跟帖/回复"

@@ -17,6 +17,7 @@ import Register from "@/pages/Register";
 // 引入用户中心的组件
 import Personal from '@/pages/Personal';
 import edit from '@/pages/edit';
+import Myfollow from '@/pages/Myfollow';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
@@ -40,6 +41,10 @@ const routes = [{
     {
         path: '/edit',
         component: edit
+    },
+    {
+        path: '/myfollow',
+        component: Myfollow
     },
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
