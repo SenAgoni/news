@@ -67,6 +67,7 @@ export default {
                 const {data} = res.data;
                 // 然后把这个数据存储起来发送给定义组件那边
                 this.postlist = data;
+                console.log(data);
             })
         })
     }
