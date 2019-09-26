@@ -25,10 +25,14 @@
       text="跟帖/回复"
       ></cellbar>
        </router-link>
+       
+    <router-link to="/Mycollect">
       <cellbar
       label="我的收藏"
       text="文章/视频"
       ></cellbar>
+      </router-link>
+
       <Loginout
       label="退出"
       ></Loginout>
