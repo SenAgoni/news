@@ -22,7 +22,8 @@
         :title="item.name">
         <!-- 这里刚刚出问题是因为内容是要在tab标签里面的 因为这里的内容是要关连到栏目表的所以要把页面要显示内容写到这里 -->
             <Newscontent
-                :post="postlist"
+            v-for="(item,index) in postlist"
+                :post="item"
             />
             <!-- 上面的post是为了让这边请求回来的数据发送给定义组件那边来渲染页面 -->
         </van-tab>
