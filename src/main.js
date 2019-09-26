@@ -18,6 +18,7 @@ import Register from "@/pages/Register";
 import Personal from '@/pages/Personal';
 import edit from '@/pages/edit';
 import Myfollow from '@/pages/Myfollow';
+import Threadfollow from '@/pages/Threadfollow';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
@@ -45,6 +46,10 @@ const routes = [{
     {
         path: '/myfollow',
         component: Myfollow
+    },
+    {
+        path: '/Threadfollow',
+        component: Threadfollow
     },
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
