@@ -26,9 +26,11 @@
         :key="index"
         :title="item.name"
       >
-      <div class="arrow">
+     <router-link to="/admin">
+          <div class="arrow">
           <span class="iconfont iconjiantou1"></span>
       </div>
+     </router-link>
         <!-- 这里刚刚出问题是因为内容是要在tab标签里面的 因为这里的内容是要关连到栏目表的所以要把页面要显示内容写到这里 -->
         <Newscontent
           v-for="(item,index) in postlist"
@@ -91,6 +93,7 @@ export default {
             //这里是把后面获取的数据来添加到一个新的数组中,然后就要赋值给this.postlist
             this.postlist = newData;
             this.loading = false;
+            this.pageIndex++;
             // 这里是要数据库里面没有数据了才可以说是已加载完成
             if (data.length < 5) {
               // 为什么要<5呢?因为数据长度小于一个页面的渲染的话就要显示加载完成了
