@@ -154,7 +154,7 @@ export default {
             text-align:center;
             span{
               color:#fff;
-              font-size:38px;
+              font-size:40/360*100vw;
             }
           }
         }
