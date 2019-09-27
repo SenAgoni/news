@@ -26,6 +26,9 @@
         :key="index"
         :title="item.name"
       >
+      <div class="arrow">
+          <span class="iconfont iconjiantou1"></span>
+      </div>
         <!-- 这里刚刚出问题是因为内容是要在tab标签里面的 因为这里的内容是要关连到栏目表的所以要把页面要显示内容写到这里 -->
         <Newscontent
           v-for="(item,index) in postlist"
@@ -200,5 +203,17 @@ export default {
 }
 /deep/.van-tabs__line {
   height: 2px;
+}
+.arrow{
+    position: absolute;
+    width:40/360*100vw;
+    height:21/360*100vw;
+    right: -1px;
+    top:10px;
+    background-color: #e4e4e4;
+    text-align: center;
+    span{
+        font-size:25px;
+    }
 }
 </style>
