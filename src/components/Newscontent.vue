@@ -4,24 +4,33 @@
   <div class="newslist" v-if="post.cover.length > 0 &&post.cover.length <3 && post.type === 1">
       <!-- 布局是要左右布局 -->
       <div class="news-left">
-        <p>{{post.title}}</p>
+        <!-- 这里是把相对应的文章的id 带过去给文章详情来使用 -->
+        <router-link :to="`/Postdetail/${post.id}`">
+          <p>{{post.title}}</p>
+        </router-link>
         <span>
           {{post.user.nickname}} <i>{{post.comment_length}}跟帖</i>
         </span>
       </div>
       <div class="news-right">
-        <img :src="post.cover[0].url">
+        <router-link :to="`/Postdetail/${post.id}`">
+          <img :src="post.cover[0].url">
+        </router-link>
       </div>
   </div>
   <!-- 三张图片 -->
   <div class="newsthreelist" v-if="post.cover.length >= 3">
       <!-- 布局是要左右布局 -->
       <div class="news-threeleft">
-        <p>{{post.title}}</p>
+        <router-link :to="`/Postdetail/${post.id}`">
+          <p>{{post.title}}</p>
+        </router-link>
       </div>
-      <div class="news-threepic">
-        <img :src="item.url" v-for="(item,index) in post.cover" v-if=" index < 3">
-      </div>
+      <router-link :to="`/Postdetail/${post.id}`">
+        <div class="news-threepic">
+            <img :src="item.url" v-for="(item,index) in post.cover" v-if=" index < 3">
+        </div>
+      </router-link>
       <span>
           {{post.user.nickname}} <i>{{post.comment_length}}跟帖</i>
         </span>
@@ -32,12 +41,14 @@
       <div class="vedio-title">
         <p>{{post.title}}</p>
       </div>
+      <router-link :to="`/Postdetail/${post.id}`">
       <div class="vedio-pic">
-        <img :src="post.cover[0].url">
-        <div class="layer">
-            <span class="iconfont iconshipin"></span>
-        </div>
+          <img :src="post.cover[0].url">
+          <div class="layer">
+              <span class="iconfont iconshipin"></span>
+          </div>
       </div>
+       </router-link>
        <span>
           {{post.user.nickname}} <i>{{post.comment_length}}跟帖</i>
       </span>

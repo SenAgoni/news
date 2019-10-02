@@ -70,6 +70,8 @@ export default {
       // 分页组件的使用
       loading: false,
       finished: false,
+      // 记录鼠标位置用的
+      scroll:0,
     }
   },
   // 这里来监听cid的变化,然后让后台来决定要渲染的是个什么数据

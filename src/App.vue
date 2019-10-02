@@ -21,6 +21,9 @@ data(){
 @import url("http://at.alicdn.com/t/font_1426139_h6vn3jbl5q.css");
 /* // 在app主页面的vue文件中引入刚下载的包,因为有可能所有的 文件都是需要用到的 */
 @import url('../node_modules/vant/lib/index.css');
+
+@import url('../node_modules/video.js/dist/video-js.css');
+@import url('../node_modules/vue-video-player/src/custom-theme.css');
 /* 这里书写样式最初始化的 */
 *{
   margin:0;

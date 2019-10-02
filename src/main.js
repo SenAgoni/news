@@ -11,6 +11,8 @@ import Vant from 'vant';
 import axios from 'axios';
 // 引入路由模块
 import VueRouter from "vue-router";
+// 引入视频组件
+import VideoPlayer from 'vue-video-player';
 // 引入登录页的组件文件
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
@@ -22,6 +24,7 @@ import Threadfollow from '@/pages/Threadfollow';
 import Mycollect from '@/pages/Mycollect';
 import Index from '@/pages/Index';
 import Admin from '@/pages/Admin';
+import Postdetail from '@/pages/Postdetail';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
@@ -66,6 +69,10 @@ const routes = [{
         path: '/admin',
         component: Admin
     },
+    {
+        path: '/Postdetail/:id',
+        component: Postdetail
+    },
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
 const router = new VueRouter({
@@ -84,7 +91,6 @@ var app = new Vue({
 })
 // 路由守卫就是每请求一个路由,就会经过这里
 router.beforeEach((to, from, next) => {
-    console.log(to)
     const hasToken = localStorage.getItem("token");
     if (to.path === '/personal' || to.path === '/edit') {
         if (hasToken) {
