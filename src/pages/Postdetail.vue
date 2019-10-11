@@ -30,8 +30,8 @@
       </div>
   </div>
   <div class="post-vedio" v-if="post.type==2">
-      <video 
-      src="https://video.pearvideo.com/mp4/adshort/20190928/cont-1607558-14435078_adpkg-ad_hd.mp4" 
+      <video
+      :src="post.content" 
       controls class="video"
       poster="../../static/images/tanqi.png"
       ></video>
@@ -46,7 +46,7 @@
           </div>
       </div>
       <div class="post-content">
-          <h3>{{post.title}}</h3>
+          <h3 style="padding:10px">{{post.title}}</h3>
       </div>
       <div class="star-father">
           <div class="star" :class="{isLike:post.has_like}" @click="handleStar">
@@ -77,12 +77,17 @@ export default {
     },
     // 然后页面一加载就要渲染数据
     mounted(){
-        this.$axios({
-            url:"/post/"+this.$route.params.id,
-        }).then(res=>{
+        const config = {
+                url:"/post/" + this.$route.params.id,
+            }
+            if(localStorage.getItem("token")){
+               config.headers = {
+                    Authorization: localStorage.getItem('token')
+                }
+            }
+        this.$axios(config).then(res=>{
             const {data} = res.data;
             this.post = data;
-            console.log(this.post)
         })
     },
     components:{

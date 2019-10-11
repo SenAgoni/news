@@ -74,38 +74,44 @@ export default {
       scroll:0,
     }
   },
+   methods: {
+    // 这一个事件是一往下拉就会触发的事件
+    onLoad() {
+      // 然后就发送axios请求,获取下一页的数据
+      this.pageIndex++;
+      this.init();
+    },
+    init() {
+      this.$axios({
+        url: `/post?category=${this.cid}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
+      }).then(res => {
+        setTimeout(() => {
+          const { data } = res.data;
+          // 这里的数据是要接着原本就有的数据来渲染页面的才能显示增加的意思
+          const newData = [...this.postlist, ...data] //把数据直接追加到新数组中,然后可以直接渲染页面
+          // 这里是把后面获取的数据来添加到一个新的数组中,然后就要赋值给this.postlist
+          this.postlist = newData;
+          console.log(this.postlist)
+          this.loading = false;
+          // 这里是要数据库里面没有数据了才可以说是已加载完成
+          if (data.length < 5) {
+            // 为什么要<5呢?因为数据长度小于一个页面的渲染的话就要显示加载完成了
+            this.finished = true;
+            // 这个改为true就代表数据已经渲染完成了,数据库里面已经没有数据了
+          }
+        }, 20);
+      })
+    }
+  },
   // 这里来监听cid的变化,然后让后台来决定要渲染的是个什么数据
   watch: {
     active() {
       // 当监听到变化时我再次发送axios请求
       this.cid = this.categories[this.active].id;
       this.pageIndex = 1;
-      this.$axios({
-        url: `/post?category=${this.cid}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`,
-      }).then(res => {
-        const { data } = res.data;
-        this.postlist = data;
-        this.$axios({
-          url: `/post?category=${this.cid}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
-        }).then(res => {
-          setTimeout(() => {
-            const { data } = res.data;
-            //这里的数据是要接着原本就有的数据来渲染页面的才能显示增加的意思
-            const newData = [...this.postlist, ...data] //把数据直接追加到新数组中,然后可以直接渲染页面
-            //这里是把后面获取的数据来添加到一个新的数组中,然后就要赋值给this.postlist
-            this.postlist = newData;
-            this.loading = false;
-            this.pageIndex++;
-            // 这里是要数据库里面没有数据了才可以说是已加载完成
-            if (data.length < 5) {
-              // 为什么要<5呢?因为数据长度小于一个页面的渲染的话就要显示加载完成了
-              this.finished = true;
-              // 这个改为true就代表数据已经渲染完成了,数据库里面已经没有数据了
-            }
-          }, 20);
-        })
-      })
-
+      // 在变化时要把原有的数据清空
+      this.postlist = [];
+      this.init()
     }
   },
   components: {
@@ -136,35 +142,6 @@ export default {
         this.postlist = data;
       })
     })
-  },
-  methods: {
-    // 这一个事件是一往下拉就会触发的事件
-    onLoad() {
-      // 然后那一个页数就要增加一页  每一次往下拉请求一次新数据就先增加一个
-      ++this.pageIndex;
-      // 然后就发送axios请求,获取下一页的数据
-      this.init(this.cid);
-    },
-    init(cid) {
-      this.$axios({
-        url: `/post?category=${cid}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
-      }).then(res => {
-        setTimeout(() => {
-          const { data } = res.data;
-          // 这里的数据是要接着原本就有的数据来渲染页面的才能显示增加的意思
-          const newData = [...this.postlist, ...data] //把数据直接追加到新数组中,然后可以直接渲染页面
-          // 这里是把后面获取的数据来添加到一个新的数组中,然后就要赋值给this.postlist
-          this.postlist = newData;
-          this.loading = false;
-          // 这里是要数据库里面没有数据了才可以说是已加载完成
-          if (data.length < 5) {
-            // 为什么要<5呢?因为数据长度小于一个页面的渲染的话就要显示加载完成了
-            this.finished = true;
-            // 这个改为true就代表数据已经渲染完成了,数据库里面已经没有数据了
-          }
-        }, 20);
-      })
-    }
   },
 }
 </script>

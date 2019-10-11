@@ -1,7 +1,7 @@
 <template>
 <div>
   <!-- 这个组件是只有一张封面图的时候可以用到的  -->
-  <div class="newslist" v-if="post.cover.length > 0 &&post.cover.length <3 && post.type === 1">
+  <div class="newslist" v-if="post.cover.length > 0 &&post.cover.length <3 && post.type == 1 && post.open==1">
       <!-- 布局是要左右布局 -->
       <div class="news-left">
         <!-- 这里是把相对应的文章的id 带过去给文章详情来使用 -->
@@ -19,7 +19,7 @@
       </div>
   </div>
   <!-- 三张图片 -->
-  <div class="newsthreelist" v-if="post.cover.length >= 3">
+  <div class="newsthreelist" v-if="post.cover.length >= 3 && post.open==1">
       <!-- 布局是要左右布局 -->
       <div class="news-threeleft">
         <router-link :to="`/Postdetail/${post.id}`">
@@ -36,7 +36,7 @@
         </span>
   </div>
   <!-- 视频部分 -->
-  <div class="vedio" v-if="post.type === 2 && post.cover.length === 1">
+  <div class="vedio" v-if="post.type === 2 && post.cover.length === 1 && post.open==1">
       <!-- 布局是要左右布局 -->
       <div class="vedio-title">
         <p>{{post.title}}</p>
@@ -60,6 +60,13 @@
 export default {
   // 声明可以接受的数据 
   props:["post"],
+  mounted(){
+    this.post.cover.forEach(v=>{
+      if(v.url.indexOf('http')===-1){
+        v.url = this.$axios.defaults.baseURL + v.url
+      }
+    })
+  }
 }
 </script>
 

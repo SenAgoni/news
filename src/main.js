@@ -25,6 +25,7 @@ import Mycollect from '@/pages/Mycollect';
 import Index from '@/pages/Index';
 import Admin from '@/pages/Admin';
 import Postdetail from '@/pages/Postdetail';
+import Postcomment from '@/pages/Postcomment';
 // 最后要注册一个路由中间件
 Vue.use(VueRouter);
 Vue.use(Vant);
@@ -72,6 +73,10 @@ const routes = [{
     {
         path: '/Postdetail/:id',
         component: Postdetail
+    },
+    {
+        path: '/Postcomment/:id',
+        component: Postcomment
     },
 ]
 // 路由:2.创建一个路由对象 这是注册一个路由对象 运用路由VueRouter方法
